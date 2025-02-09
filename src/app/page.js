@@ -1,12 +1,7 @@
 // pages/index.js
 import Link from 'next/link';
-import PostCard from './/components/PostCard.js';
-
-const posts = [
-  { id: 1, title: 'Pierwszy Post', imageUrl: '/images/post1.jpg', excerpt: 'To jest fragment pierwszego posta.' },
-  { id: 2, title: 'Drugi Post', imageUrl: '/images/post2.jpg', excerpt: 'To jest fragment drugiego posta.' },
-  // Możesz dodać więcej postów
-];
+import PostCard from './components/PostCard.js';
+import postsData from './data/posts.json';
 
 export default function Home() {
   return (
@@ -16,8 +11,14 @@ export default function Home() {
       <main style={{ padding: '20px' }}>
         <h1>Blog</h1>
         <div>
-          {posts.map(post => (
-            <PostCard key={post.id} post={post} />
+          {postsData.posts.map(post => (
+            <PostCard 
+              key={post.id} 
+              post={{
+                ...post,
+                imageUrl: `/images/posts/${post.slug}.jpg`
+              }} 
+            />
           ))}
         </div>
       </main>

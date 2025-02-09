@@ -1,5 +1,6 @@
 // components/PostCard.js
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PostCard({ post }) {
   return (
@@ -12,10 +13,21 @@ export default function PostCard({ post }) {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      <img src={post.imageUrl} alt={post.title} style={{ borderRadius: '10px', width: '100%', height: 'auto' }} />
-      <h2 className='text-lg'>{post.title}</h2>
-      <p>{post.excerpt}</p>
-      <Link href={`/post/${post.title.toLowerCase().replace(/\s+/g, '-')}`}>
+      <div className="relative w-full h-[200px] mb-4">
+        <Image
+          src={post.imageUrl}
+          alt={post.title}
+          fill
+          style={{ objectFit: 'cover' }}
+          className="rounded-lg"
+        />
+      </div>
+      <h2 className='text-lg font-bold'>{post.title}</h2>
+      <p className="my-2">{post.excerpt}</p>
+      <Link 
+        href={`/${post.slug}`}
+        className="text-blue-600 hover:text-blue-800"
+      >
         Read more...
       </Link>
     </div>
