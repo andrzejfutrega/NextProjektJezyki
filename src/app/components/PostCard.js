@@ -4,10 +4,18 @@ import Image from 'next/image';
 
 export default function PostCard({ post }) {
   return (
-    <div style={{ 
-      borderRadius: '15px', 
-      backgroundColor: '#f4f4f4', 
-      marginBottom: '20px', 
+      <main style={{
+          width: '75%',
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+          padding: '20px'
+      }}>
+    <div style={{
+        width: '50%',
+      borderRadius: '15px',
+      backgroundColor: '#f4f4f4',
+      marginBottom: '20px',
       padding: '20px',
       display: 'flex',
       flexDirection: 'column',
@@ -22,7 +30,7 @@ export default function PostCard({ post }) {
           className="rounded-lg"
         />
       </div>
-      <h2 className='text-lg font-bold'>{post.title}</h2>
+      <h2 className='text-black text-lg font-bold'>{post.title}</h2>
       <p className="my-2">{post.excerpt}</p>
       <Link 
         href={`/${post.slug}`}
@@ -31,5 +39,6 @@ export default function PostCard({ post }) {
         Read more...
       </Link>
     </div>
+    </main>
   );
 }

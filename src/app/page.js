@@ -1,15 +1,9 @@
-// pages/index.js
-import Link from 'next/link';
+// pages/index.js    </div>
 import PostCard from './components/PostCard.js';
 import postsData from './data/posts.json';
 
 export default function Home() {
   return (
-    <div>
-     
-
-      <main style={{ padding: '20px' }}>
-        <h1>Blog</h1>
         <div>
           {postsData.posts.map(post => (
             <PostCard 
@@ -21,7 +15,5 @@ export default function Home() {
             />
           ))}
         </div>
-      </main>
-    </div>
   );
 }
