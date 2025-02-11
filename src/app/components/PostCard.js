@@ -1,20 +1,8 @@
 // components/PostCard.js
 import Link from 'next/link';
 import Image from 'next/image';
-import { existsSync } from 'fs';
-import path from 'path';
 
 export default function PostCard({ post, isLarge }) {
-  // Sprawdzanie czy istnieje zdjęcie dla posta
-  const getImagePath = () => {
-    const postImagePath = `/images/posts/${post.slug}.jpg`;
-    const defaultImagePath = '/images/defaultpost.jpg';
-    
-    // Sprawdź czy plik istnieje w public/images/posts
-    const fullPath = path.join(process.cwd(), 'public', 'images', 'posts', `${post.slug}.jpg`);
-    return existsSync(fullPath) ? postImagePath : defaultImagePath;
-  };
-
   return (
     <div className={`
       bg-white rounded-xl shadow-lg overflow-hidden
@@ -23,7 +11,7 @@ export default function PostCard({ post, isLarge }) {
     `}>
       <div className={`relative w-full ${isLarge ? 'h-[400px]' : 'h-[200px]'}`}>
         <Image
-          src={post.image_url || '/images/defaultpost.jpg'}
+          src="/images/defaultpost.jpg"
           alt={post.title}
           fill
           style={{ objectFit: 'cover' }}
