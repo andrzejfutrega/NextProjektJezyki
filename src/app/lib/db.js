@@ -1,8 +1,4 @@
-import { createClient } from '@vercel/blob';
-
-const blob = createClient({
-    token: process.env.BLOB_READ_WRITE_TOKEN,
-});
+import { list, put, get } from '@vercel/blob';
 
 const POSTS_BLOB_NAME = 'posts.json';
 
@@ -14,17 +10,15 @@ const initialData = {
 export async function getAllPosts() {
     try {
         // Próba pobrania pliku JSON z Blob Storage
-        const { blob: postsBlob } = await blob.get(POSTS_BLOB_NAME);
-        
-        if (!postsBlob) {
+        const blob = await get(POSTS_BLOB_NAME);
+        if (!blob) {
             // Jeśli nie ma pliku, utwórz go z początkową strukturą
-            await blob.put(POSTS_BLOB_NAME, JSON.stringify(initialData), {
+            await put(POSTS_BLOB_NAME, JSON.stringify(initialData), {
                 access: 'public',
             });
             return [];
         }
-        
-        const text = await postsBlob.text();
+        const text = await blob.text();
         const data = JSON.parse(text);
         return data.posts || [];
     } catch (error) {
@@ -38,8 +32,8 @@ export async function createPost(post) {
         // Pobierz aktualne posty lub utwórz nową strukturę
         let data;
         try {
-            const { blob: postsBlob } = await blob.get(POSTS_BLOB_NAME);
-            const text = await postsBlob.text();
+            const blob = await get(POSTS_BLOB_NAME);
+            const text = await blob.text();
             data = JSON.parse(text);
         } catch (error) {
             data = initialData;
@@ -65,7 +59,7 @@ export async function createPost(post) {
         data.posts.push(newPost);
         
         // Zapisz zaktualizowaną listę postów
-        await blob.put(POSTS_BLOB_NAME, JSON.stringify(data, null, 2), {
+        await put(POSTS_BLOB_NAME, JSON.stringify(data, null, 2), {
             access: 'public',
         });
 
