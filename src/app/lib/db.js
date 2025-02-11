@@ -1,4 +1,8 @@
-import { put, list } from '@vercel/blob';
+import { createClient } from '@vercel/blob';
+
+const blob = createClient({
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+});
 
 const POSTS_BLOB_NAME = 'posts.json';
 
@@ -10,17 +14,18 @@ const initialData = {
 export async function getAllPosts() {
     try {
         // Próba pobrania pliku JSON z Blob Storage
-        const response = await fetch(POSTS_BLOB_NAME);
+        const { blob: postsBlob } = await blob.get(POSTS_BLOB_NAME);
         
-        if (!response.ok) {
+        if (!postsBlob) {
             // Jeśli nie ma pliku, utwórz go z początkową strukturą
-            await put(POSTS_BLOB_NAME, JSON.stringify(initialData), {
+            await blob.put(POSTS_BLOB_NAME, JSON.stringify(initialData), {
                 access: 'public',
             });
             return [];
         }
         
-        const data = await response.json();
+        const text = await postsBlob.text();
+        const data = JSON.parse(text);
         return data.posts || [];
     } catch (error) {
         console.error('Error fetching posts:', error);
@@ -33,8 +38,9 @@ export async function createPost(post) {
         // Pobierz aktualne posty lub utwórz nową strukturę
         let data;
         try {
-            const response = await fetch(POSTS_BLOB_NAME);
-            data = await response.json();
+            const { blob: postsBlob } = await blob.get(POSTS_BLOB_NAME);
+            const text = await postsBlob.text();
+            data = JSON.parse(text);
         } catch (error) {
             data = initialData;
         }
@@ -59,7 +65,7 @@ export async function createPost(post) {
         data.posts.push(newPost);
         
         // Zapisz zaktualizowaną listę postów
-        await put(POSTS_BLOB_NAME, JSON.stringify(data, null, 2), {
+        await blob.put(POSTS_BLOB_NAME, JSON.stringify(data, null, 2), {
             access: 'public',
         });
 
