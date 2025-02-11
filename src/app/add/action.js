@@ -22,7 +22,9 @@ export async function addPost(formData) {
             slug: formData.get("slug"),
             excerpt: formData.get("excerpt"),
             content: formData.get("content"),
-            categories: JSON.parse(formData.get("categories") || "[]")
+            categories: JSON.parse(formData.get("categories") || "[]"),
+            image_url: imageUrl || '/images/defaultpost.jpg',
+            created_at: new Date().toISOString()
         };
 
         const createdPost = await createPost(newPost);
