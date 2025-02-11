@@ -5,21 +5,242 @@
       "title": "Pierwszy Post",
       "slug": "pierwszy-post",
       "excerpt": "To jest fragment pierwszego posta.",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
     },
     {
       "id": 2,
       "title": "Drugi Post",
       "slug": "drugi-post",
       "excerpt": "To jest fragment drugiego posta.",
-      "content": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "content": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
     },
     {
       "id": 3,
       "title": "Trzeci post",
       "slug": "trzeci-post",
       "excerpt": "Bez zdjecia",
-      "content": "lorem ipsum bla bla"
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Czwarty post",
+      "slug": "czwarty-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Piąty post",
+      "slug": "piaty-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Szósty post",
+      "slug": "szosty-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Siódmy post",
+      "slug": "siodmy-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Ósmy post",
+      "slug": "osmy-post",
+      "excerpt": "Bez zdjecidddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddda",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Dziewiąty post",
+      "slug": "dziewiaty-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Dziesiąty post",
+      "slug": "dziesiaty-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Jedenasty post",
+      "slug": "jedenasty-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Dwanascie post",
+      "slug": "dwanascie-post",
+      "excerpt": "Bez zdjecia",
+      "content": "lorem ipsum bla bla",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Post posciarski",
+      "slug": "post-posciarski",
+      "excerpt": "post to ja czesc jestem post",
+      "content": "lorem ipsum blablabla lalala",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "post",
+      "slug": "post",
+      "excerpt": "post",
+      "content": "post",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "post1",
+      "slug": "post1",
+      "excerpt": "post1",
+      "content": "post1",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "post2",
+      "slug": "post2",
+      "excerpt": "post2",
+      "content": "post2",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Góry górskie",
+      "slug": "g-ry-g-rskie",
+      "excerpt": "fajne góry i górale w górach są",
+      "content": "lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "sawanna i drzewa na sawannie akacjowe drzewa",
+      "slug": "sawanna-i-drzewa-na-sawannie-akacjowe-drzewa",
+      "excerpt": "ale fajne drzewa ale super drzewa",
+      "content": "drzewa akacjowe drzewa akacjowe drzewa akacjowe drzewa akacjowe drzewa akacjowe drzewa akacjowe drzewa akacjowe ",
+      "categories": [
+        "swiat",
+        "sport"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "post o programowaniu",
+      "slug": "post-o-programowaniu",
+      "excerpt": "to jest post dotyczący programowania",
+      "content": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+      "categories": [
+        "programowanie"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "to jest post o swiecie",
+      "slug": "to-jest-post-o-swiecie",
+      "excerpt": "post o swiecie",
+      "content": "post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie post o swiecie ",
+      "categories": [
+        "swiat"
+      ]
+    },
+    {
+      "id": 21,
+      "title": "ooo",
+      "slug": "ooo",
+      "excerpt": "oo",
+      "content": "i",
+      "categories": [
+        "swiat",
+        "sport",
+        "dieta",
+        "programowanie"
+      ]
+    },
+    {
+      "id": 22,
+      "title": "poster",
+      "slug": "poster",
+      "excerpt": "poster",
+      "content": "tresc",
+      "categories": [
+        "swiat",
+        "dieta"
+      ]
     }
   ]
 }

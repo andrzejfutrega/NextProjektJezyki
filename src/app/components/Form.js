@@ -1,12 +1,23 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function Form({ addPost }) {
+    const router = useRouter();
     const [title, setTitle] = useState("");
     const [excerpt, setExcerpt] = useState("");
     const [content, setContent] = useState("");
+    const [image, setImage] = useState(null);
     const [error, setError] = useState(null);
-    const filePath = '/home/artur/Desktop/NextProjektJezyki/src/app/data/posts.json'
+    const [imagePreview, setImagePreview] = useState(null);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    
+    const categories = [
+        { id: "swiat", name: "Świat" },
+        { id: "sport", name: "Sport" },
+        { id: "dieta", name: "Dieta" },
+        { id: "programowanie", name: "Programowanie" }
+    ];
 
     const generateSlug = (title) => {
         return title
@@ -15,43 +26,54 @@ export default function Form({ addPost }) {
             .replace(/^-+|-+$/g, "");
     };
 
-    const generateNextId = () => {
-        try {
-            if (fs.existsSync(filePath)) {
-                const data = fs.readFileSync(filePath, 'utf8');
-                const posts = JSON.parse(data);
-                if (posts.length === 0) {
-                    return 1;
-                }
-                const lastId = Math.max(...posts.map(post => post.id));
-                return lastId + 1;
-            } else {
-                return 1;
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                setError("Zdjęcie nie może być większe niż 5MB");
+                return;
             }
-        } catch (error) {
-            console.error('Błąd podczas generowania ID:', error);
-            return 1;
+            setImage(file);
+            // Tworzenie podglądu zdjęcia
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
         }
+    };
+
+    const handleCategoryChange = (categoryId) => {
+        setSelectedCategories(prev => 
+            prev.includes(categoryId)
+                ? prev.filter(cat => cat !== categoryId)
+                : [...prev, categoryId]
+        );
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const slug = generateSlug(title);
 
-        const newPost = {
-            id: generateNextId(),
-            title,
-            slug,
-            excerpt,
-            content,
-        };
-
         try {
-            await addPost(newPost);
-            alert("Post został dodany!");
-            setTitle("");
-            setExcerpt("");
-            setContent("");
+            const formData = new FormData();
+            formData.append("title", title);
+            formData.append("slug", slug);
+            formData.append("excerpt", excerpt);
+            formData.append("content", content);
+            formData.append("categories", JSON.stringify(selectedCategories));
+            if (image) {
+                formData.append("image", image);
+            }
+
+            const result = await addPost(formData);
+            if (result.success) {
+                alert("Post został dodany!");
+                // Przekierowanie do nowego posta
+                router.push(`/${slug}`);
+            } else {
+                setError(result.message || "Wystąpił błąd podczas dodawania posta.");
+            }
         } catch (err) {
             setError("Błąd podczas zapisywania posta.");
         }
@@ -69,7 +91,7 @@ export default function Form({ addPost }) {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 text-gray-700 focus:text-gray-900" // Added focus color change for text
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 text-gray-700 focus:text-gray-900"
                     />
                 </div>
                 <div>
@@ -79,8 +101,26 @@ export default function Form({ addPost }) {
                         value={excerpt}
                         onChange={(e) => setExcerpt(e.target.value)}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 text-gray-700 focus:text-gray-900" // Added focus color change for text
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 text-gray-700 focus:text-gray-900"
                     />
+                </div>
+                <div>
+                    <label className="block text-lg font-medium text-gray-700 mb-2">Zdjęcie:</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                    />
+                    {imagePreview && (
+                        <div className="mt-2">
+                            <img
+                                src={imagePreview}
+                                alt="Podgląd"
+                                className="max-h-40 rounded-lg"
+                            />
+                        </div>
+                    )}
                 </div>
                 <div>
                     <label className="block text-lg font-medium text-gray-700 mb-2">Treść:</label>
@@ -88,8 +128,24 @@ export default function Form({ addPost }) {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 h-40 text-gray-700 focus:text-gray-900" // Added focus color change for text
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 h-40 text-gray-700 focus:text-gray-900"
                     ></textarea>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-lg font-medium text-gray-700 mb-2">Kategorie:</label>
+                    <div className="flex flex-wrap gap-2">
+                        {categories.map(category => (
+                            <label key={category.id} className="inline-flex items-center">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedCategories.includes(category.id)}
+                                    onChange={() => handleCategoryChange(category.id)}
+                                    className="form-checkbox h-5 w-5 text-blue-600"
+                                />
+                                <span className="ml-2 text-gray-700">{category.name}</span>
+                            </label>
+                        ))}
+                    </div>
                 </div>
                 <button
                     type="submit"
