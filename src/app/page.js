@@ -1,10 +1,8 @@
 // pages/index.js    </div>
 import PostCard from './components/PostCard.js';
-import { getAllPosts } from './lib/db';
+import postsData from './data/posts.json';
 
-export default async function Home() {
-  const posts = await getAllPosts();
-
+export default function Home() {
   const getPostLayout = (index, totalPosts) => {
     // Używamy modulo 6 aby wzór powtarzał się co 6 postów
     const position = index % 6;
@@ -26,12 +24,15 @@ export default async function Home() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 auto-rows-min">
-      {posts.map((post, index) => {
-        const layout = getPostLayout(index, posts.length);
+      {postsData.posts.map((post, index) => {
+        const layout = getPostLayout(index, postsData.posts.length);
         return (
           <div key={post.id} className={layout.className}>
             <PostCard 
-              post={post}
+              post={{
+                ...post,
+                imageUrl: `/images/posts/${post.slug}.jpg`
+              }}
               isLarge={layout.isLarge}
             />
           </div>

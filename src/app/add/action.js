@@ -1,34 +1,54 @@
 "use server";
-import { put } from '@vercel/blob';
-import { createPost } from '../lib/db';
+import fs from "fs";
+import path from "path";
 
 export async function addPost(formData) {
     try {
-        // Obsługa przesyłania obrazu do Vercel Blob
-        const image = formData.get("image");
-        let imageUrl = null;
+        const filePath = path.join(process.cwd(), 'src', 'app', 'data', 'posts.json');
         
-        if (image) {
-            const blob = await put(`posts/${formData.get("slug")}-${Date.now()}.jpg`, image, {
-                access: 'public',
-                addRandomSuffix: true
-            });
-            imageUrl = blob.url;
+        let postsData = { posts: [] };
+        if (fs.existsSync(filePath)) {
+            const fileContent = await fs.promises.readFile(filePath, "utf8");
+            postsData = fileContent ? JSON.parse(fileContent) : { posts: [] };
         }
 
-        // Tworzenie nowego posta
+        const maxId = postsData.posts.reduce((max, post) => Math.max(max, post.id), 0);
+        const newId = maxId + 1;
+
+        const categories = JSON.parse(formData.get("categories") || "[]");
+
         const newPost = {
+            id: newId,
             title: formData.get("title"),
             slug: formData.get("slug"),
             excerpt: formData.get("excerpt"),
             content: formData.get("content"),
-            categories: JSON.parse(formData.get("categories") || "[]"),
-            image_url: imageUrl || '/images/defaultpost.jpg',
-            created_at: new Date().toISOString()
+            categories: categories
         };
 
-        const createdPost = await createPost(newPost);
-        return { success: true, post: createdPost };
+        // Obsługa zdjęcia
+        const image = formData.get("image");
+        if (image) {
+            const imageBuffer = await image.arrayBuffer();
+            const imageExtension = image.name.split('.').pop();
+            const imageName = `${newPost.slug}.${imageExtension}`;
+            const imageDir = path.join(process.cwd(), 'public', 'images', 'posts');
+            
+            // Upewnij się, że katalog istnieje
+            if (!fs.existsSync(imageDir)) {
+                fs.mkdirSync(imageDir, { recursive: true });
+            }
+
+            await fs.promises.writeFile(
+                path.join(imageDir, imageName),
+                Buffer.from(imageBuffer)
+            );
+        }
+
+        postsData.posts.push(newPost);
+        await fs.promises.writeFile(filePath, JSON.stringify(postsData, null, 2));
+
+        return { success: true };
     } catch (error) {
         console.error("Błąd zapisu posta:", error);
         return { success: false, message: "Nie udało się zapisać posta." };

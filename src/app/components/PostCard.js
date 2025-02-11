@@ -23,7 +23,7 @@ export default function PostCard({ post, isLarge }) {
     `}>
       <div className={`relative w-full ${isLarge ? 'h-[400px]' : 'h-[200px]'}`}>
         <Image
-          src={post.image_url || '/images/defaultpost.jpg'}
+          src={getImagePath()}
           alt={post.title}
           fill
           style={{ objectFit: 'cover' }}
