@@ -22,7 +22,6 @@ body {
   padding: 0;
 }
 
-/* Animacja tła */
 @keyframes gradient-animation {
   0% {
     background-position: 0 50%;
@@ -62,4 +61,6 @@ nav {
   display: flex;
   flex-direction: column;
 }
-
+p, span, li{
+  color: black;
+}
