@@ -1,10 +1,11 @@
 import PostCard from '../../components/PostCard';
-import postsData from '../../data/posts.json';
+import { getAllPosts } from '../../lib/db';
 
-export default function CategoryPage({ params }) {
+export default async function CategoryPage({ params }) {
     const { category } = params;
+    const allPosts = await getAllPosts();
     
-    const filteredPosts = postsData.posts.filter(post => 
+    const filteredPosts = allPosts.filter(post => 
         post.categories?.includes(category)
     );
 
